@@ -1,0 +1,58 @@
+micronaut:
+  application:
+    name: demo
+
+  security:
+    enabled: false
+    authentication: bearer
+    token:
+      jwt:
+        signatures:
+          secret:
+            generator:
+              secret: '"${JWT_GENERATOR_SIGNATURE_SECRET:pleaseChangeThisSecretForANewOne}"'
+
+  netty:
+    event-loops:
+      default:
+        prefer-native-transport: true
+
+  server:
+    http-version: 2.0
+    ssl:
+      port: 8443
+      enabled: true
+      keyStore:
+        path: classpath:pki/app/tls.p12
+        password: 76540E80-5C23-4D7C-B8C5-5AD611DCF0EC
+        type: PKCS12
+    netty:
+      use-native-transport: true
+      worker:
+        threads: 8
+      childOptions:
+        autoRead: true
+
+  http:
+    client:
+      http-version: 2.0
+
+  router:
+    static-resources:
+      default:
+        enabled: true
+        mapping: "/static/**"
+        paths: classpath:static
+
+grpc:
+  server:
+    port: 8444
+    keep-alive-time: 3h
+    ssl:
+      cert-chain: classpath:/pki/api/tls.crt
+      private-key: classpath:/pki/api/tls.key
+
+netty:
+  default:
+    allocator:
+      max-order: 3

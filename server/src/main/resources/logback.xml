@@ -1,0 +1,32 @@
+<configuration>
+    <property name="STDOUT_WITH_JANSI" value="true" />
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>${STDOUT_WITH_JANSI:-false}</withJansi>
+        <encoder>
+            <pattern>%cyan(%d{HH:mm:ss.SSS}) %gray([%thread]) %highlight(%-5level) %magenta(%logger{36}) - %msg%n </pattern>
+        </encoder>
+    </appender>
+    <appender name="CONSOLE_JSON" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+            <layout class="io.micronaut.gcp.logging.StackdriverJsonLayout">
+                <projectId>cookies-accounts</projectId>
+                <includeTraceId>true</includeTraceId>
+                <includeSpanId>true</includeSpanId>
+                <includeLevel>true</includeLevel>
+                <includeMDC>true</includeMDC>
+                <includeLoggerName>true</includeLoggerName>
+                <includeFormattedMessage>true</includeFormattedMessage>
+                <includeExceptionInMessage>true</includeExceptionInMessage>
+            </layout>
+        </encoder>
+    </appender>
+
+    <logger name="io.netty.channel.DefaultChannelPipeline" level="OFF" />
+    <logger name="io.netty.handler.ssl.ApplicationProtocolNegotiationHandler" level="OFF" />
+    <logger name="io.micronaut.http.server.netty.RoutingInBoundHandler" level="OFF" />
+    <logger name="io.micronaut.discovery.client.config.DistributedPropertySourceLocator" level="DEBUG" />
+
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>

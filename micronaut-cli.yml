@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: com.example
+testFramework: junit
+sourceLanguage: kotlin
+buildTool: gradle_kotlin
+features: [ annotation-api, app-name, email-sendgrid, email-template, github-workflow-google-cloud-run-graalvm, graalvm, gradle, http-client, jackson-databind, jib, junit, kotlin, kotlin-application, kotlin-build, kotlin-extension-functions, management, micronaut-aot, micronaut-build, netty-server, readme, security, security-annotations, security-jwt, shade, slf4j-simple, testcontainers, views-handlebars, yaml ]

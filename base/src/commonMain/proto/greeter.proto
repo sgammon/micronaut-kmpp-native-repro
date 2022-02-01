@@ -1,0 +1,31 @@
+
+syntax = "proto3";
+
+package com.demo.proto.greeter;
+
+option java_package = "com.demo.proto.greeter";
+option java_string_check_utf8 = true;
+
+
+// Request for a greeting to be generated.
+message GreetRequest {
+  // Name to greet with.
+  string name = 1;
+
+  // Optional email to greet with.
+  string email = 2;
+}
+
+
+// Response for a greeting request.
+message GreetResponse {
+  // Generated greeting response.
+  string greeting = 1;
+}
+
+
+// RPC service for greeting.
+service GreeterV1 {
+  // Generate a greeting based on an input name and, optionally, email address.
+  rpc Greet(GreetRequest) returns (GreetResponse);
+}
