@@ -17,6 +17,7 @@ val grpcVersion = project.properties["grpcVersion"] ?: "1.21.0"
 val grpccVersion = project.properties["grpccVersion"] ?: grpcVersion
 val grpcKotlinVersion = project.properties["grpcKotlinVersion"] ?: "1.2.1"
 val protocValidateVersion = project.properties["protocValidateVersion"] ?: "0.6.3"
+val jacksonVersion = project.properties["jacksonVersion"] ?: "2.13.1"
 
 sourceSets {
     main {
@@ -41,6 +42,14 @@ kotlin {
         val sourceSet = sourceSets.getByName("jsMain")
         sourceSet.kotlin.srcDir("build/generated/sources/proto/main/js")
         sourceSet.kotlin.srcDir("build/generated/sources/proto/main/grpc-web")
+
+        val commonMain by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.3.2")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
+            }
+        }
     }
 }
 
@@ -53,6 +62,7 @@ dependencies {
     implementation("io.grpc:grpc-protobuf:$grpcVersion")
     implementation("io.grpc:grpc-stub:$grpcVersion")
     implementation("io.grpc:grpc-kotlin-stub:$grpcKotlinVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
 }
 
 protobuf {
