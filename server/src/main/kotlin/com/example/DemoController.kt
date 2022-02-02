@@ -12,7 +12,7 @@ import java.util.*
 
 @Controller("/")
 class DemoController {
-    @View("home")
+    @View("index")
     @Get(uri = "/", produces = [MediaType.TEXT_HTML])
     fun index(@QueryValue("name") name: Optional<String>): HttpResponse<Map<String, Any>> {
         return HttpResponse.ok(

@@ -44,6 +44,10 @@ micronaut:
         mapping: "/static/**"
         paths: classpath:static
 
+  views:
+    enabled: true
+    dir: static
+
 grpc:
   server:
     port: 8444

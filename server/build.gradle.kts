@@ -31,6 +31,9 @@ dependencies {
     kapt("io.micronaut:micronaut-http-validation")
     kapt("io.micronaut.security:micronaut-security-annotations")
 
+//    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
+//    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:$jacksonVersion")
+//    implementation("com.fasterxml.jackson.module:jackson-module-parameter-names:$jacksonVersion")
     implementation("com.google.cloud:native-image-support:0.11.0")
     implementation("com.google.protobuf:protobuf-java:$protobufVersion")
     implementation("com.google.protobuf:protobuf-kotlin:$protobufVersion")
@@ -133,6 +136,8 @@ graalvmNative {
             buildArgs.add("--language:regex")
             buildArgs.add("--enable-url-protocols=https,http")
             buildArgs.add("--report-unsupported-elements-at-runtime")
+
+            buildArgs.add("--features=com.example.util.svm.ModelReflectionFeature")
         }
     }
 }
@@ -140,13 +145,19 @@ graalvmNative {
 tasks.named<Copy>("processResources") {
     dependsOn(":frontend:build", ":frontend:metadataJar")
     from(project(":frontend").tasks.named("jsBrowserDistribution")) {
-        include("**/*.js")
-        into("static/js")
+        include(
+            "**/*.js",
+            "**/*.css",
+            "**/*.html",
+            "**/*.hbs",
+            "**/*.txt",
+            "**/*.svg",
+        )
+        into("static")
     }
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    dependsOn(":frontend:build", ":frontend:metadataJar")
     sourceCompatibility = JavaVersion.VERSION_11.toString()
     targetCompatibility = JavaVersion.VERSION_11.toString()
     kotlinOptions {
