@@ -3,9 +3,10 @@ plugins {
     id("browser.conventions")
 }
 
-val kotlinVersion = project.properties["kotlinVersion"] ?: "1.6.10"
-val reactVersion = project.properties["reactVersion"] ?: "17.0.2"
-val wrapperVersion = project.properties["kotlinWrapperVersion"] ?: "pre.292"
+val kotlinVersion = project.properties["kotlinVersion"] as String
+val reactVersion = project.properties["reactVersion"] as String
+val wrapperVersion = project.properties["kotlinWrapperVersion"] as String
+val protobufVersion = project.properties["protobufVersion"] as String
 val kWrapVersion = "$wrapperVersion-kotlin-$kotlinVersion"
 
 kotlin {
