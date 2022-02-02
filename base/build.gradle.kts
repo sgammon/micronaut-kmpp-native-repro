@@ -17,6 +17,7 @@ val grpcVersion = project.properties["grpcVersion"] ?: "1.21.0"
 val grpccVersion = project.properties["grpccVersion"] ?: grpcVersion
 val grpcKotlinVersion = project.properties["grpcKotlinVersion"] ?: "1.2.1"
 val protocValidateVersion = project.properties["protocValidateVersion"] ?: "0.6.3"
+val jacksonVersion = project.properties["jacksonVersion"] ?: "2.13.1"
 
 sourceSets {
     main {
@@ -41,18 +42,31 @@ kotlin {
         val sourceSet = sourceSets.getByName("jsMain")
         sourceSet.kotlin.srcDir("build/generated/sources/proto/main/js")
         sourceSet.kotlin.srcDir("build/generated/sources/proto/main/grpc-web")
+
+        val commonMain by getting {
+            dependencies {
+                implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
+                implementation("jakarta.inject:jakarta.inject-api:2.0.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.3.2")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
+            }
+        }
     }
 }
 
 dependencies {
     protobuf(files("externals"))
+    implementation("com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion")
     implementation("com.google.protobuf:protobuf-java:$protobufVersion")
     implementation("com.google.protobuf:protobuf-kotlin:$protobufVersion")
+    implementation("jakarta.inject:jakarta.inject-api:2.0.1")
     implementation("io.envoyproxy.protoc-gen-validate:pgv-java-stub:$protocValidateVersion")
     implementation("io.grpc:grpc-netty:$grpcVersion")
     implementation("io.grpc:grpc-protobuf:$grpcVersion")
     implementation("io.grpc:grpc-stub:$grpcVersion")
     implementation("io.grpc:grpc-kotlin-stub:$grpcKotlinVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
 }
 
 protobuf {
