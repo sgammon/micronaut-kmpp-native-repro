@@ -6,13 +6,11 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>{{htmlWebpackPlugin.options.title}}</title>
+    <title>Demo App</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 <main>
-    <h1>Hello</h1>
-    <div id="root"></div>
 </main>
 </body>
 </html>

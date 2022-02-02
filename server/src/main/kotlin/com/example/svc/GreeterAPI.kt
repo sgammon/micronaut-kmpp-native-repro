@@ -15,24 +15,20 @@ import java.util.*
 
     /** Kotlin API method via GET. */
     @Get fun get(@QueryValue("name") name: Optional<String>): HttpResponse<GreetResponse> {
-        return HttpResponse.ok(
-            GreetResponse(
+        return HttpResponse.ok(GreetResponse(
             greeting = greeter.renderGreeting(
                 name = name.orElse("World")
             )
-        )
-        )
+        ))
     }
 
     /** Kotlin API method via POST. */
     @Post fun post(@Body request: GreetRequest): HttpResponse<GreetResponse> {
-        return HttpResponse.ok(
-            GreetResponse(
+        return HttpResponse.ok(GreetResponse(
             greeting = greeter.renderGreeting(
                 name = request.name,
                 email = request.email
             )
-        )
-        )
+        ))
     }
 }
