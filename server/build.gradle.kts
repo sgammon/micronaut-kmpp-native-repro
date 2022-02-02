@@ -83,7 +83,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("com.example.ApplicationKt")
+    mainClass.set("com.demo.ApplicationKt")
 }
 
 java {
@@ -104,7 +104,7 @@ micronaut {
     testRuntime("junit5")
     processing {
         incremental(true)
-        annotations("com.example.*")
+        annotations("com.demo.*")
     }
 
     aot {
@@ -127,8 +127,8 @@ graalvmNative {
 
             jvmArgs.add("-Duser.country=US")
             jvmArgs.add("-Duser.language=en")
-            jvmArgs.add("-Dfile.encoding=UTF-8")
             jvmArgs.add("-Duser.timezone=Pacific/Los_Angeles")
+            jvmArgs.add("-Dfile.encoding=UTF-8")
 
             buildArgs.add("--language:regex")
             buildArgs.add("--enable-url-protocols=https,http")
@@ -140,8 +140,15 @@ graalvmNative {
 tasks.named<Copy>("processResources") {
     dependsOn(":frontend:build", ":frontend:metadataJar")
     from(project(":frontend").tasks.named("jsBrowserDistribution")) {
-        include("**/*.js")
-        into("static/js")
+        include(
+            "**/*.js",
+            "**/*.css",
+            "**/*.html",
+            "**/*.hbs",
+            "**/*.txt",
+            "**/*.svg",
+        )
+        into("static")
     }
 }
 
@@ -157,6 +164,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         freeCompilerArgs = listOf(
             "-Xjvm-default=all",
             "-Xjsr305=strict",
+            "-opt-in=kotlin.RequiresOptIn",
         )
     }
 }

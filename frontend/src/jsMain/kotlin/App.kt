@@ -35,15 +35,17 @@ fun greetAPI(): Promise<String> {
 @OptIn(DelicateCoroutinesApi::class)
 fun main() {
     window.onload = {
+        val appRoot = document.getElementById("app")
+            ?: document.body!!
+        greetAPI().then {
+            console.log("REST API test complete.")
+        }
+
         GlobalScope.launch {
            render(
                 element = App.create(),
-                container = document.createElement("div").also {
-                    it.id = "root"
-                    it.classList.add("app-root")
-                    document.body!!.appendChild(it)
-                },
-            )
+                container = appRoot
+           )
         }
     }
 }

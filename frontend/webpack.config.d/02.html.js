@@ -10,10 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<main>
-    <h1>Hello</h1>
-    <div id="root"></div>
-</main>
+<main id="app"></main>
 </body>
 </html>
 `;
