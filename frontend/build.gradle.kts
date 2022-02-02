@@ -12,14 +12,22 @@ kotlin {
     sourceSets {
         val jsMain by getting {
             dependencies {
+                implementation(project(":base"))
+                implementation(devNpm("handlebars", "4.7.7"))
+                implementation(devNpm("html-webpack-plugin", "5.5.0"))
+                implementation(devNpm("esbuild-loader", "2.18.0"))
+                implementation(devNpm("handlebars-loader", "1.7.1"))
+
 //                implementation(npm("grpc-web", "1.3.1", generateExternals = false))
 //                implementation(devNpm("webpack-inject-plugin", "1.5.5"))
-//                implementation(devNpm("html-webpack-plugin", "5.5.0"))
 //                implementation(devNpm("script-loader", "0.7.2"))
 //                implementation(devNpm("imports-loader", "3.1.1"))
 //                implementation(devNpm("esbuild-loader", "2.18.0"))
 
                 implementation("org.jetbrains.kotlinx:kotlinx-html-js:0.7.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
+//                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-js:1.6.0")
 
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-react:$reactVersion-$kWrapVersion")
                 implementation("org.jetbrains.kotlin-wrappers:kotlin-react-legacy:$reactVersion-$kWrapVersion")
@@ -49,6 +57,7 @@ idea {
     module {
         sourceDirs.add(file("externals"))
         sourceDirs.add(file("package.json.d"))
+        sourceDirs.add(file("templates"))
         sourceDirs.add(file("webpack.config.d"))
     }
 }
